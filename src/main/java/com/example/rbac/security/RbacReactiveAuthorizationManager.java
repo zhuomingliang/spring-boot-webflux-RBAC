@@ -35,9 +35,10 @@ public class RbacReactiveAuthorizationManager implements ReactiveAuthorizationMa
                 .map(auth -> {
                     String username = auth.getName();
                     log.info(username);
-                    sysUserService.findByUsername(username).map(s -> {
+
+                    sysUserService.findByUsername(username).doOnNext(s -> {
+                        log.info("22222");
                         log.info(s.toString());
-                        return true;
                     }).subscribe();
 //                    ArrayList<String> role_permissions = user_roles.get(username).get("dev");
 //                    String path = context.getExchange().getRequest().getPath().value();
